@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-const title = "Te";
+import AppContainer from './AppContainer'
 
 ReactDOM.render(
-  <div>{title}</div>,
+  <AppContainer/>,
   document.getElementById('app')
 );
