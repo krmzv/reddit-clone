@@ -1,2 +1,4 @@
-# reddit-clone
-Reddit clone app using native web components
+# 📚 
+Minimal reddit clone app
+
+
