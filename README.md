@@ -1,4 +1,4 @@
 # 📚 
-Minimal reddit clone app
+Minimal reddit clone using web components
 
 
