@@ -75,7 +75,7 @@
         }
     
         update() {
-          this.shadowRoot && this.src && this.shadowRoot.querySelector('img').setAttribute('src', this.src);
+          this.shadowRoot && this.src && this.shadowRoot.querySelector('img') && this.shadowRoot.querySelector('img').setAttribute('src', this.src);
           this.shadowRoot && this.href && this.shadowRoot.querySelector('a').setAttribute('href', this.href);
           if (this.shadowRoot && this.title) { this.shadowRoot.querySelector('#title').textContent = this.title; }
         }
