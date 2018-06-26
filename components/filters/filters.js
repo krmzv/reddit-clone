@@ -1,38 +1,34 @@
 const filtersTemplate = document.currentScript.ownerDocument.querySelector('#filters').content;
 
-class SearchForm extends HTMLElement {
-  static get observedAttributes() { return []; }
+class Form extends HTMLElement {
 
+  static get observedAttributes() { return [] }
+  
   connectedCallback() {
-    const shadowRoot = this.attachShadow({ mode:'open' });
-    const clone = document.currentScript.ownerDocument.importNode(filtersTemplate, true);
+    const shadow = this.attachShadow({ mode:'open' })
+    shadow.appendChild(filtersTemplate.cloneNode(true))
 
-    this.shadowRoot.appendChild(clone);
-    this.update();
+    this.update()
 
-    const srInput = this.shadowRoot.querySelectorAll('input')[0];
-    const searchInput = this.shadowRoot.querySelectorAll('input')[1];
-    const selectInput = this.shadowRoot.querySelector('select');
+    const subreddit = shadow.querySelector('#subreddit')
+    const search = shadow.querySelector('#search')
+    const time = shadow.querySelector('#time')
 
-    this.shadowRoot.querySelector('form').addEventListener('submit', (ev) => {
-      ev.preventDefault();
-      const srvalue = srInput.value.split(', ');
-      if (srvalue[srvalue.length - 1] === '') {
-        srvalue.pop();
-      }
+    shadow.querySelector('form').addEventListener('submit', (e) => {
+      e.preventDefault()
       this.dispatchEvent(new CustomEvent('search', {
         detail: {
-          subreddit: srvalue,
-          searchTerm: searchInput.value,
-          timeRange: selectInput.value
+          subreddit: subreddit.value,
+          searchTerm: search.value,
+          time: time.value
         }
-      }));
-      return false;
-    });
+      }))
+      return false
+    })
   }
 
   attributeChangedCallback(prop, oldValue, newValue) {
-    this.update();
+    this.update()
   }
 
   update() {
@@ -40,4 +36,4 @@ class SearchForm extends HTMLElement {
 
 }
 
-window.customElements.define('search-form', SearchForm);
+window.customElements.define('form-filters', Form)

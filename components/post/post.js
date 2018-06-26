@@ -1,21 +1,21 @@
 const d = document.currentScript.ownerDocument || document.currentScript._ownerDocument
-const postTemplate = document.currentScript.ownerDocument.querySelector('#post').content
+const postTemplate = d.querySelector('#post').content
 
 class Post extends HTMLElement {
 
-	constructor(){
-		super()
-		const shadow = this.attachShadow({mode: 'open'});
-    shadow.appendChild(postTemplate.cloneNode(true));
-
-		this.update = function() {
-			shadow && this.image && shadow.querySelector('#thumbnail').setAttribute('src', this.image)
-			shadow && this.headline ? shadow.querySelector('#headline').innerHTML = this.headline : null
-		}
+	static get observedAttributes() {
+		return ['image', 'headline', 'id']
 	}
 
-	static get observedAttributes() {
-		return ['image', 'headline']
+	constructor(){
+		super()
+		const shadow = this.attachShadow({mode: 'open'})
+		shadow.appendChild(gridTemplate.cloneNode(true))
+
+		this.update = function() {
+			shadow && this.headline ? shadow.querySelector('#headline').innerHTML = this.headline : null
+			shadow && this.image && shadow.querySelector('#thumbnail').setAttribute('src', this.image)
+		}
 	}
 	
 	set image(url) {
@@ -24,6 +24,9 @@ class Post extends HTMLElement {
 	set headline(title) {
 		this.setAttribute('headline', title)
 	}
+	set id(id){
+		this.setAttribute('id', id)
+	}
 
 	get image() {
 		return this.getAttribute('image')
@@ -31,14 +34,17 @@ class Post extends HTMLElement {
 	get headline(){
 		return this.getAttribute('headline')
 	}
+	get id(){
+		return this.getAttribute('id')
+	}
 
 	connectedCallback() {
-		this.update();
+		this.update()
 	}
 
 	attributeChangedCallback(prop, oldValue, newValue) {
-			this.update();
+			this.update()
 	}
 }
 
-window.customElements.define('one-post', Post);
+window.customElements.define('one-post', Post)

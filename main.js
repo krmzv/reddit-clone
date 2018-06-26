@@ -1,41 +1,30 @@
-import { RedditService } from './utils/redditApi.js';
+import { searchReddit, lazyLoad } from './utils/redditApi.js';
 
-
-const searchForm = document.querySelector('search-form');
+const searchForm = document.querySelector('form-filters');
 const postGrid = document.querySelector('post-grid');
-const redditService = new RedditService();
-let redditPosts = [];
 
-function showPosts() {
-  document.querySelector('post-grid').posts = JSON.stringify(redditPosts);
-}
+let posts = [];
 
-async function getPosts(sr, q, t) {
-  redditPosts = await redditService.search(sr, q, t)
-  showPosts();
+// let scrollOptions = {
+//   distance: 50,
+//   callback: (done) => {
+//     lazyLoad()
+//     done()
+//   }
+// }
+
+// infiniteScroll(scrollOptions)
+
+
+async function getPosts(search, sub, time) {
+  return searchReddit(search, sub, time)
+  posts = await searchReddit(search, sub, time)
+  postGrid.posts = JSON.stringify(posts)
   postGrid.loading = false;
 }
 
-postGrid.addEventListener('autoload', async () => {
-  postGrid.loading = true;
-  const popularSubreddits = await redditService.popularSubreddits();
-  getPosts(popularSubreddits);
-});
-
-searchForm.addEventListener('search', (ev) => {
-  postGrid.loading = true;
-  postGrid.posts = [];
-  getPosts(ev.detail.subreddit, ev.detail.searchTerm, ev.detail.timeRange);
-});
-
-window.addEventListener('scroll', async (ev) => {
-  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-    postGrid.loading = true;
-    const posts = await redditService.loadMore();
-    if (posts) {
-      redditPosts = [...redditPosts, ...posts];
-      showPosts();
-    }
-    postGrid.loading = false;
-  }
-});
+searchForm.addEventListener('search', (e) => {
+  postGrid.loading = true
+  postGrid.posts = []
+  getPosts(e.detail.searchTerm, e.detail.subreddit, e.detail.time)
+})

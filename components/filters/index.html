@@ -1,54 +1,39 @@
 <template id='filters'>
     <style>
-      form {
-        grid-template-columns: 4fr 2fr 1fr 1fr;
-        grid-column-gap: 12px;
-        padding-bottom: 18px;
-        padding-top: 6px;
-        display: grid;
-        width: 100%;
-      }
-  
-      input, button, select  {
-        border-radius: 50px;
-        padding: 0px 16px;
-        margin: 6px 0px;
-        height: 36px;
+      input, select {
+        height: 60px;
+        width: 30%;
         border: none;
-      }
-  
-      select {
-        -webkit-appearance: none;
-                appearance: none;
-        background: #FFFFFF;
-      }
-  
-      input:focus, button:focus, select:focus {
-        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
         outline: none;
-      }
-  
-      button {
-        text-transform: uppercase;
-        background: #fc461f;
-        color: #FFFFFF;
-        font-size: 14px;
-      }
-  
-      button:hover {
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-      }
-  
-      @media screen and (max-width: 600px) {
-        form { grid-template-columns: 1fr; }
-      }
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    	form{
+        width: 100%;
+        height: 80px;
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: black;
+    	}
     </style>
   
     <form>
-      <input type="text" placeholder="Subreddit" data-multiple>
-      <input type="text" placeholder="Search Term">
-      <select placholder="Time Range">
+      <input id="search" type="text" placeholder="Search for posts...">
+
+      <select id="subreddit">
+          <option value='space' selected>Space</option>
+          <option value='spaceporn'>SpacePorn</option>
+          <option value='nasa'>NASA</option>
+          <option value='esa'>ESA</option>
+          <option value='spaceflight'>SpaceFlight</option>
+          <option value='astronomy'>Astronomy</option>
+          <option value='cosmology'>Cosmology</option>
+          <option value='mars'>Mars</option>
+      </select>
+
+      <select id="time">
         <option value="hour">Past hour</option>
         <option value="day">Past 24 hour</option>
         <option value="week">Past week</option>
@@ -60,5 +45,5 @@
     </form>
     
   </template>
-  
+
   <script src='filters.js'></script>

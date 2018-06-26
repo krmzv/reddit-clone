@@ -19,6 +19,8 @@ class PostGrid extends HTMLElement {
         const postsContainer = shadow.querySelector('#posts')
         const postCard = document.createElement('one-post')
 
+        console.log(postsData)
+
         postsData.map(post => {
           postsContainer.appendChild(postCard)
           postCard.image = post.image
@@ -58,26 +60,10 @@ class PostGrid extends HTMLElement {
     return this.hasAttribute('loading')
   }
 
-    connectedCallback() {
-    //   if (localStorage.getItem('posts')) {
-    //     const exp = JSON.parse(localStorage.getItem('exp'));
-    //     if (new Date(exp) > new Date()) {
-    //       this.update(localStorage.getItem('posts'), false);
-    //     } else {
-    //       localStorage.removeItem('posts');
-    //       localStorage.removeItem('exp');
-
-    //       this.dispatchEvent(new CustomEvent('autoload'));
-    //     }
-    //   } else {
-    //     this.dispatchEvent(new CustomEvent('autoload'));
-    //   }
-      }
-
-    attributeChangedCallback(prop, oldValue, newValue) {
-      this.isLoading(prop, newValue)  
-    }
+  attributeChangedCallback(prop, oldValue, newValue) {
+    this.isLoading(prop, newValue)  
+  }
 
   }
     
-window.customElements.define('post-grid', PostGrid);
+window.customElements.define('post-grid', PostGrid)
