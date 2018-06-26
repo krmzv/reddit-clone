@@ -1,107 +1,22 @@
-<template>
+<template id='grid'>
     <style>
       .posts {
         font-family: Arial, Helvetica, sans-serif;
-        grid-template-columns: repeat(5, 1fr);
+        width: 100%;
+        display: grid;
+        grid-template-rows: 100px 100px 100px;
+        grid-template-columns: 30% 30% 30%;
         color: #fc461f;
         font-size: 18px;
         grid-gap: 12px;
-        display: grid;
       }
   
-      .loading {
-        padding-top: 12px;
-      }
-  
-      @media screen and (max-width: 1024px) {
-        .posts { grid-template-columns: repeat(4, 1fr); }
-      }
-  
-      @media screen and (max-width: 720px) {
-        .posts { grid-template-columns: repeat(3, 1fr); }
-      }
-  
-      @media screen and (max-width: 480px) {
-        .posts { grid-template-columns: repeat(2, 1fr); }
-      }
     </style>
   
-    <div class="posts"></div>
-    <div class="posts loading" style="display: none">
-      <post-card></post-card>
-      <post-card></post-card>
-      <post-card></post-card>
+    <div id='posts' class="posts"></div>
+    <div id='loading' class="posts" style="display: none">
     </div>
+
   </template>
-  
-  <script>
-    (function() {
-      const doc = (document._currentScript || document.currentScript).ownerDocument;
-      const template = doc.querySelector('template').content;
-    
-      class PostGrid extends HTMLElement {
-        static get observedAttributes() { return ['posts', 'loading']; }
-        
-        set posts(posts) { this.setAttribute('posts', posts); }
-        get posts() { return this.getAttribute('posts'); }
-        
-        set loading(loading) {
-          loading ? this.setAttribute('loading', '') : this.removeAttribute('loading');
-        }
-        get loading() { return this.hasAttribute('loading'); }
-    
-        connectedCallback() {
-          const shadowRoot = this.attachShadow({ mode:'open' });
-          const clone = doc.importNode(template, true);
-  
-          this.shadowRoot.appendChild(clone);
-          
-          if (localStorage.getItem('posts')) {
-            const exp = JSON.parse(localStorage.getItem('exp'));
-            if (new Date(exp) > new Date()) {
-              this.update(localStorage.getItem('posts'), false);
-            } else {
-              localStorage.removeItem('posts');
-              localStorage.removeItem('exp');
-  
-              this.dispatchEvent(new CustomEvent('autoload'));
-            }
-          } else {
-            this.dispatchEvent(new CustomEvent('autoload'));
-          }
-        }
-    
-        attributeChangedCallback(prop, oldValue, newValue) {
-          if (prop === 'loading') {
-            const display = newValue === null ? 'none' : 'grid';
-            this.shadowRoot.querySelector('.posts.loading').style.display = display;
-          } else {
-            this.update();
-          }
-        }
-        
-        update(posts = this.posts, extendCache = true) {
-          try {
-            const postsEl = this.shadowRoot.querySelector('.posts');
-            postsEl.innerHTML = '';
-            
-            JSON.parse(posts).forEach((post) => {
-              const postEl = document.createElement('post-card');
-              postsEl.appendChild(postEl)
-              postEl.src = post.src;
-              postEl.title = post.title;
-              postEl.href = `https://www.reddit.com${post.href}`;
-            });
-  
-            if (extendCache) {
-              localStorage.setItem('posts', this.posts);
-              localStorage.setItem('exp', Date.now() + 5 * 60 * 1000);
-            }
-          } catch (e) {}
-        }
-      }
-    
-      window.customElements.define('post-grid', PostGrid);
-    })();
-  </script>
-  
+
+  <script src='grid.js'></script>

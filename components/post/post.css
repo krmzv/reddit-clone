@@ -1,0 +1,35 @@
+.card {
+	position: relative;
+	overflow: hidden;
+	min-height: 100px;
+	min-width: 150px;
+	background-color: grey;
+	padding-right: 20px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-between;
+	opacity: 0;
+	transition: opacity 0.2s cubic-bezier(.57,.21,.69,1.25);
+}
+
+.card__thumbnail {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.card__headline {
+	color: black;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.fade-in{
+	-webkit-animation: fade-in 0.2s cubic-bezier(.57,.21,.69,1.25) both;
+	animation: fade-in 0.2s cubic-bezier(.57,.21,.69,1.25) both;
+}
+
+@keyframes fade-in {
+	from { opacity: 0 }
+	to { opacity: 1 }
+}

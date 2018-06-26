@@ -10,7 +10,7 @@ export class RedditService {
         
         urls.push(`https://www.reddit.com/r/${sr.toLowerCase()}/`);
         if (q) {
-          urls[i] += `search.json?sort=top&restrict_sr=on&type=image&limit=15&q=${q.toLowerCase()}&t=${t}`;
+          urls[i] += `search.json?sort=top&restrict_sr=on&type=image&limit=5&q=${q.toLowerCase()}&t=${t}`;
         } else {
           urls[i] += `top.json?show=all&limit=15&t=${t}`
         }
@@ -35,9 +35,8 @@ export class RedditService {
           return posts.reduce((arr, post) => {
             if (/^http/.test(post.data.thumbnail)) {
               arr.push({
-                src: post.data.thumbnail,
-                href: post.data.permalink,
-                title: post.data.title
+                image: post.data.thumbnail,
+                headline: post.data.title
               });
             }
             return arr;

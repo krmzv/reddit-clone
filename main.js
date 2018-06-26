@@ -1,5 +1,6 @@
 import { RedditService } from './utils/redditApi.js';
 
+
 const searchForm = document.querySelector('search-form');
 const postGrid = document.querySelector('post-grid');
 const redditService = new RedditService();

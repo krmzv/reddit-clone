@@ -1,4 +1,4 @@
-<template>
+<template id='filters'>
     <style>
       form {
         grid-template-columns: 4fr 2fr 1fr 1fr;
@@ -60,53 +60,5 @@
     </form>
     
   </template>
-    
-  <script>
-    (function() {
-      const doc = (document._currentScript || document.currentScript).ownerDocument;
-      const template = doc.querySelector('template').content;
-    
-      class SearchForm extends HTMLElement {
-        static get observedAttributes() { return []; }
-    
-        connectedCallback() {
-          const shadowRoot = this.attachShadow({ mode:'open' });
-          const clone = doc.importNode(template, true);
-    
-          this.shadowRoot.appendChild(clone);
-          this.update();
-    
-          const srInput = this.shadowRoot.querySelectorAll('input')[0];
-          const searchInput = this.shadowRoot.querySelectorAll('input')[1];
-          const selectInput = this.shadowRoot.querySelector('select');
-    
-          this.shadowRoot.querySelector('form').addEventListener('submit', (ev) => {
-            ev.preventDefault();
-            const srvalue = srInput.value.split(', ');
-            if (srvalue[srvalue.length - 1] === '') {
-              srvalue.pop();
-            }
-            this.dispatchEvent(new CustomEvent('search', {
-              detail: {
-                subreddit: srvalue,
-                searchTerm: searchInput.value,
-                timeRange: selectInput.value
-              }
-            }));
-            return false;
-          });
-        }
-    
-        attributeChangedCallback(prop, oldValue, newValue) {
-          this.update();
-        }
-    
-        update() {
-        }
   
-      }
-    
-      window.customElements.define('search-form', SearchForm);
-    })();
-  </script>
-  
+  <script src='filters.js'></script>
