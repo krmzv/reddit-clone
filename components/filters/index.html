@@ -1,0 +1,49 @@
+<template id='filters'>
+    <style>
+      input, select {
+        height: 60px;
+        width: 30%;
+        border: none;
+        outline: none;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    	form{
+        width: 100%;
+        height: 80px;
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: black;
+    	}
+    </style>
+  
+    <form>
+      <input id="search" type="text" placeholder="Search for posts...">
+
+      <select id="subreddit">
+          <option value='space' selected>Space</option>
+          <option value='spaceporn'>SpacePorn</option>
+          <option value='nasa'>NASA</option>
+          <option value='esa'>ESA</option>
+          <option value='spaceflight'>SpaceFlight</option>
+          <option value='astronomy'>Astronomy</option>
+          <option value='cosmology'>Cosmology</option>
+          <option value='mars'>Mars</option>
+      </select>
+
+      <select id="time">
+        <option value="hour">Past hour</option>
+        <option value="day">Past 24 hour</option>
+        <option value="week">Past week</option>
+        <option value="month">Past month</option>
+        <option value="year">Past year</option>
+        <option value="all" selected>Any time</option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
+    
+  </template>
+
+  <script src='filters.js'></script>
