@@ -14,34 +14,32 @@ class Grid extends HTMLElement {
     shadow.appendChild(gridTemplate.cloneNode(true))
 
     this.update = function(p = this.posts){
-      console.log(p, 'THIS UPDATE GRID')
       try{
         const postsData = JSON.parse(p)
         const postsContainer = shadow.querySelector('#posts')
         const postCard = document.createElement('one-post')
-
-        console.log(postsData)
-
+        
         postsData.map(post => {
           postsContainer.appendChild(postCard)
-          postCard.image = post.image
-          postCard.headline = post.headline
+          console.log(post.data.headline, post.data)
+          postCard.image = post.data.thumbnail
+          postCard.headline = post.data.title
         })
       } catch(e) { console.log(e) }
   
     }
 
-    // this.isLoading = function(prop, newValue){
+    this.isLoading = function(prop, newValue){
 
-    //   const loadingComponent = shadow.querySelector('#loading')
+      const loadingComponent = shadow.querySelector('#loading')
 
-    //   if(prop === 'loading' && (!newValue || newValue === null || newValue === 'undefined')){
-    //     loadingComponent.style.display = 'none'
-    //   } else {
-    //     loadingComponent.style.display = 'grid'
-    //     this.update()
-    //   }
-    // }
+      if(prop === 'loading' && (!newValue || newValue === null || newValue === 'undefined')){
+        loadingComponent.style.display = 'none'
+      } else {
+        loadingComponent.style.display = 'grid'
+        this.update()
+      }
+    }
 
   }
 
@@ -62,7 +60,7 @@ class Grid extends HTMLElement {
   }
 
   attributeChangedCallback(prop, oldValue, newValue) {
-    this.update() 
+    this.isLoading(prop, newValue)  
   }
 
   }

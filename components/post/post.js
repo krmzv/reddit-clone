@@ -7,17 +7,6 @@ class Post extends HTMLElement {
 		return ['image', 'headline', 'id']
 	}
 
-	constructor(){
-		super()
-		const shadow = this.attachShadow({mode: 'open'})
-		shadow.appendChild(postTemplate.cloneNode(true))
-
-		this.update = function() {
-			shadow && this.headline ? shadow.querySelector('#headline').innerHTML = this.headline : null
-			shadow && this.image && shadow.querySelector('#thumbnail').setAttribute('src', this.image)
-		}
-	}
-	
 	set image(url) {
 		this.setAttribute('image', url)
 	}
@@ -36,6 +25,17 @@ class Post extends HTMLElement {
 	}
 	get id(){
 		return this.getAttribute('id')
+	}
+
+	constructor(){
+		super()
+		const shadow = this.attachShadow({mode: 'open'})
+		shadow.appendChild(postTemplate.cloneNode(true))
+
+		this.update = function() {
+			shadow && this.headline ? shadow.querySelector('#headline').innerHTML = this.headline : null
+			shadow && this.image && shadow.querySelector('#thumbnail').setAttribute('src', this.image)
+		}
 	}
 
 	connectedCallback() {
