@@ -1,7 +1,7 @@
 const doc = document.currentScript.ownerDocument
 const gridTemplate = doc.querySelector('#grid').content
 
-class PostGrid extends HTMLElement {
+class Grid extends HTMLElement {
 
   static get observedAttributes() {
     return ['posts', 'loading']
@@ -19,12 +19,10 @@ class PostGrid extends HTMLElement {
         const postsContainer = shadow.querySelector('#posts')
         const postCard = document.createElement('one-post')
 
-        console.log(postsData)
-
         postsData.map(post => {
           postsContainer.appendChild(postCard)
-          postCard.image = post.image
-          postCard.headline = post.headline
+          postCard.image = post.data.thumbnail
+          postCard.headline = post.data.title
         })
       } catch(e) { console.log(e) }
   
@@ -66,4 +64,4 @@ class PostGrid extends HTMLElement {
 
   }
     
-window.customElements.define('post-grid', PostGrid)
+window.customElements.define('post-grid', Grid)

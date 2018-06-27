@@ -1,12 +1,13 @@
 <template id='filters'>
     <style>
       input, select {
-        height: 60px;
-        width: 30%;
+        height: 40px;
+        width: 20%;
         border: none;
         outline: none;
         padding-left: 20px;
-        padding-right: 20px;
+				padding-right: 20px;
+				font-size: 18px;
     }
 
     	form{
@@ -15,8 +16,21 @@
         display: inline-flex;
         justify-content: space-between;
         align-items: center;
-        background-color: black;
-    	}
+			}
+			
+			button{
+				outline: none;
+				border: none;
+				width: 160px;
+				height: 40px;
+				background-color: black;
+				border-radius: 3px;
+				color: white;
+				font-size: 16px;
+				font-weight: 700px;
+				cursor: pointer;
+			}
+
     </style>
   
     <form>
@@ -34,14 +48,14 @@
       </select>
 
       <select id="time">
-        <option value="hour">Past hour</option>
-        <option value="day">Past 24 hour</option>
+				<option value="all" selected>Any time</option>
         <option value="week">Past week</option>
         <option value="month">Past month</option>
         <option value="year">Past year</option>
-        <option value="all" selected>Any time</option>
-      </select>
-      <button type="submit">Search</button>
+			</select>
+			
+			<button type="submit">Search</button>
+			
     </form>
     
   </template>
