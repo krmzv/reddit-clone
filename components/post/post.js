@@ -10,7 +10,7 @@ class Post extends HTMLElement {
 	constructor(){
 		super()
 		const shadow = this.attachShadow({mode: 'open'})
-		shadow.appendChild(gridTemplate.cloneNode(true))
+		shadow.appendChild(postTemplate.cloneNode(true))
 
 		this.update = function() {
 			shadow && this.headline ? shadow.querySelector('#headline').innerHTML = this.headline : null

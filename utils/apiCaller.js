@@ -19,7 +19,10 @@ export const searchReddit = (search, subreddit, time = 'all', lazyLoad = false) 
   return fetch(url)
     .then(res => res.json())
     .then(x => x.data.children)
-    .then(posts => posts.filter(post => post.data.thumbnail.startsWith('http'))
+    .then(posts => {
+      console.log(posts, 'postsApi')
+      return posts.filter(post => post.data.thumbnail.startsWith('http'))
+    })
 }
 
 export const lazyLoad = () => after && after.length > 0 ? searchReddit(s, sr, t, true) : null

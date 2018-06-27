@@ -1,4 +1,4 @@
-import { searchReddit, lazyLoad } from './utils/redditApi.js';
+import { searchReddit, lazyLoad } from './utils/apiCaller.js';
 
 const searchForm = document.querySelector('form-filters');
 const postGrid = document.querySelector('post-grid');
@@ -17,7 +17,6 @@ let posts = [];
 
 
 async function getPosts(search, sub, time) {
-  return searchReddit(search, sub, time)
   posts = await searchReddit(search, sub, time)
   postGrid.posts = JSON.stringify(posts)
   postGrid.loading = false;

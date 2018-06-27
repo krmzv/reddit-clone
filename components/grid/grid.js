@@ -1,7 +1,7 @@
 const doc = document.currentScript.ownerDocument
 const gridTemplate = doc.querySelector('#grid').content
 
-class PostGrid extends HTMLElement {
+class Grid extends HTMLElement {
 
   static get observedAttributes() {
     return ['posts', 'loading']
@@ -14,6 +14,7 @@ class PostGrid extends HTMLElement {
     shadow.appendChild(gridTemplate.cloneNode(true))
 
     this.update = function(p = this.posts){
+      console.log(p, 'THIS UPDATE GRID')
       try{
         const postsData = JSON.parse(p)
         const postsContainer = shadow.querySelector('#posts')
@@ -30,17 +31,17 @@ class PostGrid extends HTMLElement {
   
     }
 
-    this.isLoading = function(prop, newValue){
+    // this.isLoading = function(prop, newValue){
 
-      const loadingComponent = shadow.querySelector('#loading')
+    //   const loadingComponent = shadow.querySelector('#loading')
 
-      if(prop === 'loading' && (!newValue || newValue === null || newValue === 'undefined')){
-        loadingComponent.style.display = 'none'
-      } else {
-        loadingComponent.style.display = 'grid'
-        this.update()
-      }
-    }
+    //   if(prop === 'loading' && (!newValue || newValue === null || newValue === 'undefined')){
+    //     loadingComponent.style.display = 'none'
+    //   } else {
+    //     loadingComponent.style.display = 'grid'
+    //     this.update()
+    //   }
+    // }
 
   }
 
@@ -61,9 +62,9 @@ class PostGrid extends HTMLElement {
   }
 
   attributeChangedCallback(prop, oldValue, newValue) {
-    this.isLoading(prop, newValue)  
+    this.update() 
   }
 
   }
     
-window.customElements.define('post-grid', PostGrid)
+window.customElements.define('post-grid', Grid)
