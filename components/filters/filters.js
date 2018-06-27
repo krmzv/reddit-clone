@@ -5,6 +5,7 @@ class Form extends HTMLElement {
   static get observedAttributes() { return [] }
   
   connectedCallback() {
+
     const shadow = this.attachShadow({ mode:'open' })
     shadow.appendChild(filtersTemplate.cloneNode(true))
 
@@ -23,7 +24,6 @@ class Form extends HTMLElement {
           time: time.value
         }
       }))
-      return false
     })
   }
 

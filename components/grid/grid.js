@@ -18,10 +18,9 @@ class Grid extends HTMLElement {
         const postsData = JSON.parse(p)
         const postsContainer = shadow.querySelector('#posts')
         const postCard = document.createElement('one-post')
-        
+
         postsData.map(post => {
           postsContainer.appendChild(postCard)
-          console.log(post.data.headline, post.data)
           postCard.image = post.data.thumbnail
           postCard.headline = post.data.title
         })
